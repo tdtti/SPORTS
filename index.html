@@ -1,60 +1,571 @@
-/* Responsive adjustments */
-.certificate-container {
-  width: 100%;
-  max-width: 1200px;
-  height: auto;
-  box-sizing: border-box;
-  padding: 10px;
-  border-width: 3px;
-  margin-left: auto;
-  margin-right: auto;
-}
+<!DOCTYPE html>
+<html lang="en">
 
-@media (max-width: 768px) {
-  .certificate-container {
-    padding: 5px;
-    font-size: 14px;
-  }
-  #candidatePhoto {
-    width: 180px;
-    height: 90px;
-  }
-  .certificate-header img {
-    width: 40px !important;
-  }
-  .certificate-footer {
-    padding: 0 50px;
-    flex-direction: column;
-    align-items: center;
-  }
-  .signature {
-    margin-bottom: 10px;
-  }
-}
+<head>
+  <style>
+    body {
+      font-family: 'Times New Roman', Times, serif;
+      text-align: center;
+      background-color: #f3f3f3;
+      padding: 10px;
+      margin: 0;
+    }
 
-/* Print settings for A4 landscape */
-@media print {
-  @page {
-    size: A4 landscape;
-    margin: 10mm 15mm;
-  }
+    .form-container,
+    .login-container {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      margin: 10px auto;
+      width: 90%;
+      max-width: auto;
+    }
 
-  body {
-    margin: 0;
-    background-color: white;
-  }
+    .form-container h2,
+    .login-container h2 {
+      margin-bottom: 20px;
+      color: #007bff;
+    }
 
-  .form-container, .btn-container, #loginContainer {
-    display: none !important;
-  }
+    label {
+      display: block;
+      float: left;
+      margin: 10px 0 5px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 25px;
+    }
 
-  .certificate-container {
-    display: block !important;
-    width: 100% !important;
-    height: auto !important;
-    box-shadow: none !important;
-    border: 5px solid #d4af37 !important;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-}
+    input,
+    select {
+      width: 98%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      transition: border-color 0.3s ease;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+
+    .btn {
+      margin-top: 25px;
+      background-color: #007bff;
+      color: white;
+      font-size: 18px;
+      border: none;
+      padding: 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      width: 50%;
+    }
+
+    .btn:hover {
+      background-color: #0056b3;
+    }
+
+    .certificate-container {
+      width: 1200px;
+      /* A4 width in landscape */
+      height: 850px;
+      /* Adjust height for landscape */
+      padding: 5px;
+      border: 5px solid #d4af37;
+      /* Gold border */
+      margin: 5px auto;
+      margin-left: -20px;
+      background-color: white;
+      position: relative;
+      display: none;
+      /* Hide the certificate initially */
+      box-sizing: border-box;
+    }
+
+    .certificate-header {
+      text-align: center;
+      padding-bottom: 5px;
+      border-bottom: 2px solid #000;
+      position: relative;
+    }
+
+    .certificate-header img {
+      width: 50px;
+      position: absolute;
+      top: 10px;
+    }
+
+    .certificate-header img:first-child {
+      left: 20px;
+    }
+
+    .certificate-header img:last-child {
+      right: 20px;
+      height: 160px;
+      width: 120px;
+      position: absolute;
+      top: 10px;
+    }
+
+    .school-name {
+      font-size: 40px;
+      font-weight: bold;
+      color: #02498D;
+      margin: 0;
+    }
+
+    .school-address {
+      font-size: 25px;
+      color: #02498D;
+      margin: 0;
+    }
+
+    .certificate-title {
+      font-size: 30px;
+      font-weight: bold;
+      color: #d4af37;
+      margin: 20px 0 0 0;
+    }
+
+    .certificate-body {
+      margin-top: 10px;
+      padding: 0 30px;
+    }
+
+    .certificate-body h2 {
+      font-size: 30px;
+      margin-bottom: 5px;
+    }
+
+    #candidatePhoto {
+      width: 260px;
+      height: 130px;
+      border-radius: 1%;
+      object-fit: cover;
+      display: none;
+      margin: 0 auto 10px;
+    }
+
+    .certificate-body p {
+      font-size: 20px;
+      margin: 5px 0;
+    }
+
+    .certificate-footer {
+      margin-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 200px;
+      flex-wrap: wrap;
+      box-sizing: border-box;
+    }
+
+    .signature {
+      text-align: center;
+      min-width: 150px;
+    }
+
+    .signature p {
+      margin-top: 20px;
+      font-size: 15px;
+    }
+
+    .btn-container {
+      margin-top: 10px;
+      padding: 10px;
+    }
+
+    @media (max-width: 1200px) {
+      .certificate-container {
+        width: 100%;
+        height: auto;
+        margin-left: 0;
+        padding: 10px;
+      }
+
+      .certificate-header img:first-child {
+        width: 40px;
+        height: auto;
+        left: 10px;
+      }
+
+      .certificate-header img:last-child {
+        width: 100px;
+        height: auto;
+        right: 10px;
+      }
+
+      .school-name {
+        font-size: 28px;
+      }
+
+      .school-address {
+        font-size: 18px;
+      }
+
+      .certificate-title {
+        font-size: 24px;
+      }
+
+      #candidatePhoto {
+        width: 180px;
+        height: 90px;
+      }
+
+      .certificate-body p,
+      .certificate-body h2 {
+        font-size: 16px;
+      }
+
+      .certificate-footer {
+        padding: 0 20px;
+        justify-content: center;
+      }
+
+      .signature {
+        margin: 10px 15px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      label {
+        float: none;
+        text-align: left;
+      }
+
+      .btn {
+        width: 100%;
+        padding: 15px;
+        font-size: 16px;
+      }
+
+      .certificate-footer {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+
+    @media print {
+      @page {
+        size: A4 landscape;
+        margin: 10mm 15mm;
+      }
+
+      body {
+        margin: 0;
+        background-color: white;
+      }
+
+      .form-container,
+      .btn-container,
+      #loginContainer {
+        display: none !important;
+      }
+
+      .certificate-container {
+        display: block !important;
+        width: 100% !important;
+        height: auto !important;
+        box-shadow: none !important;
+        border: 5px solid #d4af37 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        box-sizing: border-box;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="login-container" id="loginContainer">
+
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjLdEud63LM6wL_5eIGtkccS6bU7dH2mJs2HQKzAMkQPLza0CseMZ9GwDV-9IQ2Qe9h7G667bu379NYJxlYuvBFVDHaghTPsIhTmXiVEn5gv5eseWodueMsnvujllBnoRgIfpsvIAQnk_iy9xosQns4MHo7PY7aMIJ4eDwiQsWP_kvRpHU/s1600/Logo2.png"
+      alt="Logo" style="top: 10px;float:center;max-height: 100px; max-width: 100px;">
+    <img style="top:10px;right:20px;max-height: 100px; max-width: 200px;"
+      src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEguLSO-bNLKuLmPHEDsU06Vt-FoStb1abFLMWeKlskX-siWwEJDsArPmYpQvyem_7R4nzaTl56AUnL61CWW3pB6bcASLdpp16fkMViTNU_J-tIe-l4FAt4U6jW3doXN61E6OKre_xi_mF9ZOYJePoVA-4FzTPOtd2rGcflLsklZBDHozOA0QMN5gwRh_HE/s1152/Gemini_Generated_Image_mv1miimv1miimv1m.png">
+    <h2>TDTTI THURAVOOR </h2>
+    <h1 style="color:blue;">HARSHAM 2025</h1>
+    <form id="loginForm">
+      <label for="loginId">Login ID:</label>
+      <input type="text" id="loginId" required placeholder="Enter Login ID">
+      <label for="loginPassword">Password:</label>
+      <input type="password" id="loginPassword" required placeholder="Enter Password">
+      <label style="display:inline-block; margin-top:10px;">
+        <input type="checkbox" id="keepSignedIn"> Keep me signed in
+      </label>
+      <button type="button" class="btn" onclick="validateLogin()">Login</button>
+    </form>
+
+    <p id="loginError" style="color: red; display: none;">Invalid ID or Password. Please try again.</p>
+  </div>
+
+  <div class="form-container" id="formContainer" style="display: none;">
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjLdEud63LM6wL_5eIGtkccS6bU7dH2mJs2HQKzAMkQPLza0CseMZ9GwDV-9IQ2Qe9h7G667bu379NYJxlYuvBFVDHaghTPsIhTmXiVEn5gv5eseWodueMsnvujllBnoRgIfpsvIAQnk_iy9xosQns4MHo7PY7aMIJ4eDwiQsWP_kvRpHU/s1600/Logo2.png"
+      alt="Logo" style="top: 10px;float:center;max-height: 150px; max-width: 150px;"> <img style="top:10px;right:20px;max-height: 100px; max-width: 100px;"
+      src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEghYTembczOQwYJxIW-xz25srYKCl35-emFKEtk4O0guiKASkPSa0yyop9sGtTfkeSOQ7Rx3TN-BfQPqVIkZI7c5jhBAvREMhgi4rvBwU_qZnd6xzjXNTMvDga0Bn78hJ-95lqbVs-67M6Vt2piAGuRDIBs9-QbC0AlZhWsnRwTrw5NDA/s1600/SPORTS.jpg"
+      style="top:10px;right:20px;max-height: 100px; max-width: 200px;">
+    <p style="margin-top: 10px; min-height: 50px;" class="school-name">THIRUMALA DEVASWOM</p>
+    <p style="margin-top: -50px; min-height: 50px;" class="school-address">TEACHER TRAINING INSTITUTE</p>
+    <p style="margin-top: -50px; min-height: 50px;" class="school-address">THURAVOOR, ALAPPUZHA</p>
+    <p style="margin-top: -50px; min-height: 50px;" class="school-address">PH : 0478-256 4479</p>
+
+    <h1>Enter Details for Certificate</h1>
+    <form id="certificateForm">
+      <label for="title">Title:</label>
+      <select id="title">
+        <option value="Master.">Master.</option>
+        <option value="Kumari.">Kumari.</option>
+        <option value="Shri.">Shri.</option>
+        <option value="Shrimathi.">Shrimathi.</option>
+      </select>
+      <label for="name">Name:</label>
+      <input type="text" id="name" required placeholder="Enter Name">
+
+      <label for="standard">Standard :</label>
+      <select id="standard">
+        <option value="5A">5A</option>
+        <option value="5B">5B</option>
+        <option value="5C">5C</option>
+        <option value="5D">5D</option>
+        <option value="6A">6A</option>
+        <option value="6B">6B</option>
+        <option value="6C">6C</option>
+        <option value="6D">6D</option>
+        <option value="7A">7A</option>
+        <option value="7B">7B</option>
+        <option value="7C">7C</option>
+        <option value="7D">7D</option>
+        <option value="D.El.Ed 1st YEAR">D.El.Ed 1st YEAR</option>
+        <option value="D.El.Ed 2nd YEAR">D.El.Ed 2nd YEAR</option>
+        <option value="TEACHING STAFF">TEACHING STAFF </option>
+        <option value="STAFF">STAFF </option>
+
+      </select>
+
+      <label for="Place">Place :</label>
+      <select id="Place">
+        <option value="FIRST">FIRST</option>
+        <option value="SECOND">SECOND</option>
+        <option value="THIRD">THIRD</option>
+        <option value="CONSOLATION">CONSOLATION</option>
+      </select>
+
+      <label for="grade">Grade :</label>
+      <select id="grade">
+        <option value="A">A</option>
+        <option value="B">B</option>
+        <option value="C">C</option>
+      </select>
+
+
+      <label for="competition">Competition:</label>
+      <select id="competition">
+        <option value="KIDDIES - 100M RUN (STANDARD V)">KIDDIES - 100M RUN (STANDARD V)</option>
+        <option value="KIDDIES - 200M RUN (STANDARD V)">KIDDIES - 200M RUN (STANDARD V)</option>
+        <option value="KIDDIES - LONG JUMP (STANDARD V)">KIDDIES - LONG JUMP (STANDARD V)</option>
+        <option value="SUB JUNIOR - 100M RUN (STANDARD VI)">SUB JUNIOR - 100M RUN (STANDARD VI)</option>
+        <option value="SUB JUNIOR - 200M RUN (STANDARD VI)">SUB JUNIOR - 200M RUN (STANDARD VI)</option>
+        <option value="SUB JUNIOR - LONG JUMP (STANDARD VI)">SUB JUNIOR - LONG JUMP (STANDARD VI)</option>
+        <option value="SUB JUNIOR - SHOTPUT (STANDARD VI)">SUB JUNIOR  - SHOTPUT (STANDARD VI)</option>
+        <option value="SUB JUNIOR - 100M RUN (STANDARD VII)">SUB JUNIOR - 100M RUN (STANDARD VII)</option>
+        <option value="SUB JUNIOR - 200M RUN (STANDARD VII)">SUB JUNIOR - 200M RUN (STANDARD VII)</option>
+        <option value="SUB JUNIOR - LONG JUMP (STANDARD VII)">SUB JUNIOR - LONG JUMP (STANDARD VII)</option>
+        <option value="SUB JUNIOR - SHOTPUT (STANDARD VII)">SUB JUNIOR  - SHOTPUT (STANDARD VII)</option>
+      </select>
+      <button type="button" class="btn" onclick="generateCertificate()">Generate Certificate</button>
+    </form>
+  </div>
+
+  <div class="certificate-container" id="certificate">
+    <div class="certificate-header">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjLdEud63LM6wL_5eIGtkccS6bU7dH2mJs2HQKzAMkQPLza0CseMZ9GwDV-9IQ2Qe9h7G667bu379NYJxlYuvBFVDHaghTPsIhTmXiVEn5gv5eseWodueMsnvujllBnoRgIfpsvIAQnk_iy9xosQns4MHo7PY7aMIJ4eDwiQsWP_kvRpHU/s1600/Logo2.png"
+        alt="Logo">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEguLSO-bNLKuLmPHEDsU06Vt-FoStb1abFLMWeKlskX-siWwEJDsArPmYpQvyem_7R4nzaTl56AUnL61CWW3pB6bcASLdpp16fkMViTNU_J-tIe-l4FAt4U6jW3doXN61E6OKre_xi_mF9ZOYJePoVA-4FzTPOtd2rGcflLsklZBDHozOA0QMN5gwRh_HE/s1152/Gemini_Generated_Image_mv1miimv1miimv1m.png"
+        alt="Right Logo">
+      <p style="margin-top: 10px; min-height: 50px;" class="school-name">THIRUMALA DEVASWOM</p>
+      <p style="margin-top: -50px; min-height: 50px;" class="school-address">TEACHER TRAINING INSTITUTE</p>
+      <p style="margin-top: -50px; min-height: 50px;" class="school-address">THURAVOOR, ALAPPUZHA</p>
+      <p style="margin-top: -50px; min-height: 50px;" class="school-address">PH : 0478-256 4479</p>
+
+      <h1 class="certificate-title">CERTIFICATE OF MERIT</h1>
+    </div>
+    <div class="certificate-body"><br>
+      <img id="candidatePhoto"
+        src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjwrbYu6FCIwrgEXJlReubLwlXDwqpvthaJhRUVS-b9bxHwwy7Wo6Dpm4h7B1Awej_JguhJn6rlhkz33W3MxtOEALiRNUhZJRHlzkJ-3NPtewH8jjf9ufrAtDAafBHqSMCnV5zez-MxImBe4zHbkB1ZT9AzA3_tpnXrgXi8hhOkXziESw/s1600/CON.jpg"
+        alt="Candidate Photo">
+      <p>This Credential is Awarded to</p>
+      <h2 id="recipientName"> Master./ Kumari. [Name]</h2>
+      <p>Standard: <strong> <span id="recipientStandard">[Standard]</span></strong> </p>
+      <p>For Winning the <strong> <span id="recipientPlace">[Place]</span></strong> Place with <strong> <span
+            id="recipientGrade">[Grade]</span></strong> Grade in the <strong> <span
+            id="recipientCompetition">[Competition]</span></strong> Competition held </p>
+      <p>in connection with the <strong> SCHOOL ATHLETIC MEET </strong>On <strong>20.02.2026 FRIDAY.</strong></p> <br><br>
+      <p style="float:left;margin-left:50px;">Date : 20.02.2026</p><br>
+      <p style="float:left;margin-left:-145px;">Place : Thuravoor</p><br><br><br><br><br><br><br>
+    </div>
+    <div class="certificate-footer">
+      <div class="signature">
+        <p>THEJAS R<br>( Convenor )</p>
+      </div>
+
+      <div class="signature">
+        <p>ASHA V <br>( Principal )</p>
+      </div>
+    </div>
+
+    <div class="signature">
+      <p> </p>
+      <p>(School Seal)</p>
+    </div>
+  </div>
+
+  <div class="btn-container" id="btnContainer" style="display:none;">
+    <button class="btn" onclick="printCertificate()">Print Certificate</button><br><br><br>
+
+    <button class="btn" onclick="downloadCertificate()">Download Certificate</button> <br><br><br>
+    <button class="btn" onclick="resetForm()">New Certificate</button> </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+  <script>
+    // Check login status on page load
+    window.onload = () => {
+      if (localStorage.getItem('isLoggedIn') === 'true') {
+        document.getElementById('loginContainer').style.display = 'none';
+        document.getElementById('formContainer').style.display = 'block';
+      }
+    }
+
+    // Validate login and store login state if "Keep me signed in" checked
+    function validateLogin() {
+      const loginId = document.getElementById('loginId').value;
+      const loginPassword = document.getElementById('loginPassword').value;
+      const keepSignedIn = document.getElementById('keepSignedIn').checked;
+
+      if (loginId === '1' && loginPassword === '1') {
+        document.getElementById('loginContainer').style.display = 'none'; // Hide login form
+        document.getElementById('formContainer').style.display = 'block'; // Show certificate form
+        document.getElementById('loginError').style.display = 'none';
+
+        if (keepSignedIn) {
+          localStorage.setItem('isLoggedIn', 'true'); // Keep user logged in
+        } else {
+          localStorage.removeItem('isLoggedIn'); // Do not keep user logged in
+        }
+      } else {
+        document.getElementById('loginError').style.display = 'block'; // Show error message
+      }
+    }
+
+    function generateCertificate() {
+      const title = document.getElementById('title').value;
+      const name = document.getElementById('name').value;
+      const standard = document.getElementById('standard').value;
+      const prize = document.getElementById('Place').value;
+      const grade = document.getElementById('grade').value;
+      const competition = document.getElementById('competition').value;
+
+      document.getElementById('recipientName').innerText = `${title} ${name}`;
+      document.getElementById('recipientStandard').innerText = standard;
+      document.getElementById('recipientPlace').innerText = prize;
+      document.getElementById('recipientGrade').innerText = grade;
+      document.getElementById('recipientCompetition').innerText = competition;
+
+      const candidatePhoto = document.getElementById('candidatePhoto');
+      candidatePhoto.style.display = 'block';
+
+      document.getElementById('certificate').style.display = 'block'; // Show the certificate
+      document.getElementById('btnContainer').style.display = 'block'; // Show the buttons
+    }
+
+    function printCertificate() {
+      const certificateHtml = document.getElementById('certificate').outerHTML;
+
+      const styleSheets = Array.from(document.styleSheets)
+        .map(sheet => {
+          try {
+            return sheet.cssRules ? sheet.ownerNode.outerHTML : `<link rel="stylesheet" href="${sheet.href}">`;
+          } catch (e) {
+            return sheet.href ? `<link rel="stylesheet" href="${sheet.href}">` : '';
+          }
+        })
+        .join('');
+      const printContent = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Print Certificate</title>
+            ${styleSheets}
+            <style>
+                @page {
+                    size: A4 landscape;
+                    margin: 10mm 15mm;
+                }
+                body {
+                    margin: 0;
+                    background-color: white;
+                }
+                .certificate-container {
+                    display: block !important;
+                    box-shadow: none;
+                    margin: 0 auto;
+                    width: 100% !important;
+                    height: auto !important;
+                    box-sizing: border-box;
+                    border: 5px solid #d4af37 !important;
+                    padding: 0 !important;
+                }
+            </style>
+        </head>
+        <body>
+            ${certificateHtml}
+        </body>
+        </html>
+    `;
+
+      const printWindow = window.open('', '_blank');
+      printWindow.document.write(printContent);
+      printWindow.document.close();
+
+      printWindow.onload = function () {
+        printWindow.print();
+      };
+    }
+
+    function downloadCertificate() {
+      var element = document.getElementById('certificate');
+      html2pdf().from(element).set({
+        margin: 0,
+        filename: 'certificate_of_merit.pdf',
+        image: {
+          type: 'jpeg',
+          quality: 0.98
+        },
+        html2canvas: {
+          scale: 2,
+          useCORS: true
+        },
+        jsPDF: {
+          unit: 'in',
+          format: 'a4',
+          orientation: 'landscape'
+        }
+      }).save();
+    }
+
+    function resetForm() {
+      document.getElementById('certificateForm').reset();
+      document.getElementById('certificate').style.display = 'none';
+      document.getElementById('btnContainer').style.display = 'none';
+      document.getElementById('formContainer').style.display = 'block';
+    }
+  </script>
+
+
+</body>
+
+</html>
