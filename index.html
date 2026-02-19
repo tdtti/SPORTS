@@ -2,6 +2,8 @@
 <html lang="en">
 
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     body {
       font-family: 'Times New Roman', Times, serif;
@@ -19,7 +21,7 @@
       padding: 20px;
       margin: 10px auto;
       width: 90%;
-      max-width: auto;
+      max-width: 600px;
     }
 
     .form-container h2,
@@ -64,6 +66,10 @@
       cursor: pointer;
       transition: background-color 0.3s ease;
       width: 50%;
+      max-width: 200px;
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
     }
 
     .btn:hover {
@@ -71,20 +77,20 @@
     }
 
     .certificate-container {
-      width: 1200px;
-      /* A4 width in landscape */
-      height: 850px;
-      /* Adjust height for landscape */
+      width: 100%;
+      max-width: 1122px;
+      /* A4 landscape width in px, 297mm ~ 1122px */
+      height: auto;
+      aspect-ratio: 297 / 210;
       padding: 5px;
       border: 5px solid #d4af37;
       /* Gold border */
       margin: 5px auto;
-      margin-left: -20px;
       background-color: white;
       position: relative;
       display: none;
-      /* Hide the certificate initially */
       box-sizing: border-box;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
 
     .certificate-header {
@@ -94,22 +100,19 @@
       position: relative;
     }
 
-    .certificate-header img {
-      width: 50px;
-      position: absolute;
-      top: 10px;
-    }
-
     .certificate-header img:first-child {
+      width: 100px;
+      position: absolute;
       left: 20px;
+      top: 10px;
     }
 
     .certificate-header img:last-child {
-      right: 20px;
-      height: 160px;
       width: 120px;
       position: absolute;
+      right: 20px;
       top: 10px;
+      height: auto;
     }
 
     .school-name {
@@ -123,23 +126,29 @@
       font-size: 25px;
       color: #02498D;
       margin: 0;
+      margin-top: 2px;
     }
 
     .certificate-title {
       font-size: 30px;
       font-weight: bold;
       color: #d4af37;
-      margin: 20px 0 0 0;
+      margin-top: 70px;
+      margin-bottom: 20px;
     }
 
     .certificate-body {
       margin-top: 10px;
-      padding: 0 30px;
+      padding: 0 60px;
+      font-size: 20px;
+      color: #000;
     }
 
     .certificate-body h2 {
       font-size: 30px;
-      margin-bottom: 5px;
+      margin-bottom: 10px;
+      margin-top: 10px;
+      font-weight: bold;
     }
 
     #candidatePhoto {
@@ -148,137 +157,79 @@
       border-radius: 1%;
       object-fit: cover;
       display: none;
-      margin: 0 auto 10px;
+      margin: 0 auto 15px;
+      border: 1px solid #ccc;
     }
 
     .certificate-body p {
-      font-size: 20px;
-      margin: 5px 0;
+      margin: 6px 0;
     }
 
     .certificate-footer {
-      margin-top: 10px;
+      margin-top: 50px;
       display: flex;
       justify-content: space-between;
-      padding: 0 200px;
-      flex-wrap: wrap;
-      box-sizing: border-box;
+      padding: 0 100px;
+      font-size: 15px;
     }
 
     .signature {
       text-align: center;
-      min-width: 150px;
     }
 
     .signature p {
-      margin-top: 20px;
-      font-size: 15px;
+      margin: 0;
     }
 
     .btn-container {
       margin-top: 10px;
       padding: 10px;
-    }
-
-    @media (max-width: 1200px) {
-      .certificate-container {
-        width: 100%;
-        height: auto;
-        margin-left: 0;
-        padding: 10px;
-      }
-
-      .certificate-header img:first-child {
-        width: 40px;
-        height: auto;
-        left: 10px;
-      }
-
-      .certificate-header img:last-child {
-        width: 100px;
-        height: auto;
-        right: 10px;
-      }
-
-      .school-name {
-        font-size: 28px;
-      }
-
-      .school-address {
-        font-size: 18px;
-      }
-
-      .certificate-title {
-        font-size: 24px;
-      }
-
-      #candidatePhoto {
-        width: 180px;
-        height: 90px;
-      }
-
-      .certificate-body p,
-      .certificate-body h2 {
-        font-size: 16px;
-      }
-
-      .certificate-footer {
-        padding: 0 20px;
-        justify-content: center;
-      }
-
-      .signature {
-        margin: 10px 15px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      label {
-        float: none;
-        text-align: left;
-      }
-
-      .btn {
-        width: 100%;
-        padding: 15px;
-        font-size: 16px;
-      }
-
-      .certificate-footer {
-        flex-direction: column;
-        align-items: center;
-      }
+      width: 90%;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     @media print {
+
       @page {
         size: A4 landscape;
-        margin: 10mm 15mm;
+        margin: 10mm;
       }
 
-      body {
+      body,
+      html {
         margin: 0;
-        background-color: white;
+        padding: 0;
+        background: none !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
       }
 
       .form-container,
       .btn-container,
-      #loginContainer {
+      .login-container {
         display: none !important;
       }
 
       .certificate-container {
         display: block !important;
-        width: 100% !important;
+        width: 100vw !important;
         height: auto !important;
+        max-width: none !important;
+        border: none !important;
         box-shadow: none !important;
-        border: 5px solid #d4af37 !important;
         margin: 0 !important;
-        padding: 0 !important;
-        box-sizing: border-box;
+        padding: 0 15mm !important;
+        page-break-after: avoid;
+      }
+
+      .certificate-body {
+        padding: 0 10mm !important;
       }
     }
   </style>
+  <title>Certificate Generator</title>
 </head>
 
 <body>
@@ -286,18 +237,18 @@
   <div class="login-container" id="loginContainer">
 
     <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjLdEud63LM6wL_5eIGtkccS6bU7dH2mJs2HQKzAMkQPLza0CseMZ9GwDV-9IQ2Qe9h7G667bu379NYJxlYuvBFVDHaghTPsIhTmXiVEn5gv5eseWodueMsnvujllBnoRgIfpsvIAQnk_iy9xosQns4MHo7PY7aMIJ4eDwiQsWP_kvRpHU/s1600/Logo2.png"
-      alt="Logo" style="top: 10px;float:center;max-height: 100px; max-width: 100px;">
-    <img style="top:10px;right:20px;max-height: 100px; max-width: 200px;"
+      alt="Logo" style="max-height: 100px; max-width: 100px; display: block; margin: 10px auto;">
+    <img style="max-height: 100px; max-width: 200px; display: block; margin: 0 auto 10px;"
       src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEguLSO-bNLKuLmPHEDsU06Vt-FoStb1abFLMWeKlskX-siWwEJDsArPmYpQvyem_7R4nzaTl56AUnL61CWW3pB6bcASLdpp16fkMViTNU_J-tIe-l4FAt4U6jW3doXN61E6OKre_xi_mF9ZOYJePoVA-4FzTPOtd2rGcflLsklZBDHozOA0QMN5gwRh_HE/s1152/Gemini_Generated_Image_mv1miimv1miimv1m.png">
-    <h2>TDTTI THURAVOOR </h2>
+    <h2>TDTTI THURAVOOR</h2>
     <h1 style="color:blue;">HARSHAM 2025</h1>
     <form id="loginForm">
       <label for="loginId">Login ID:</label>
-      <input type="text" id="loginId" required placeholder="Enter Login ID">
+      <input type="text" id="loginId" required placeholder="Enter Login ID" />
       <label for="loginPassword">Password:</label>
-      <input type="password" id="loginPassword" required placeholder="Enter Password">
+      <input type="password" id="loginPassword" required placeholder="Enter Password" />
       <label style="display:inline-block; margin-top:10px;">
-        <input type="checkbox" id="keepSignedIn"> Keep me signed in
+        <input type="checkbox" id="keepSignedIn" /> Keep me signed in
       </label>
       <button type="button" class="btn" onclick="validateLogin()">Login</button>
     </form>
@@ -307,9 +258,9 @@
 
   <div class="form-container" id="formContainer" style="display: none;">
     <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjLdEud63LM6wL_5eIGtkccS6bU7dH2mJs2HQKzAMkQPLza0CseMZ9GwDV-9IQ2Qe9h7G667bu379NYJxlYuvBFVDHaghTPsIhTmXiVEn5gv5eseWodueMsnvujllBnoRgIfpsvIAQnk_iy9xosQns4MHo7PY7aMIJ4eDwiQsWP_kvRpHU/s1600/Logo2.png"
-      alt="Logo" style="top: 10px;float:center;max-height: 150px; max-width: 150px;"> <img style="top:10px;right:20px;max-height: 100px; max-width: 100px;"
-      src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEghYTembczOQwYJxIW-xz25srYKCl35-emFKEtk4O0guiKASkPSa0yyop9sGtTfkeSOQ7Rx3TN-BfQPqVIkZI7c5jhBAvREMhgi4rvBwU_qZnd6xzjXNTMvDga0Bn78hJ-95lqbVs-67M6Vt2piAGuRDIBs9-QbC0AlZhWsnRwTrw5NDA/s1600/SPORTS.jpg"
-      style="top:10px;right:20px;max-height: 100px; max-width: 200px;">
+      alt="Logo" style="max-height: 150px; max-width: 150px; display: block; margin: 10px auto;">
+    <img style="max-height: 100px; max-width: 200px; display: block; margin: 0 auto 10px;"
+      src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEghYTembczOQwYJxIW-xz25srYKCl35-emFKEtk4O0guiKASkPSa0yyop9sGtTfkeSOQ7Rx3TN-BfQPqVIkZI7c5jhBAvREMhgi4rvBwU_qZnd6xzjXNTMvDga0Bn78hJ-95lqbVs-67M6Vt2piAGuRDIBs9-QbC0AlZhWsnRwTrw5NDA/s1600/SPORTS.jpg" />
     <p style="margin-top: 10px; min-height: 50px;" class="school-name">THIRUMALA DEVASWOM</p>
     <p style="margin-top: -50px; min-height: 50px;" class="school-address">TEACHER TRAINING INSTITUTE</p>
     <p style="margin-top: -50px; min-height: 50px;" class="school-address">THURAVOOR, ALAPPUZHA</p>
@@ -325,7 +276,7 @@
         <option value="Shrimathi.">Shrimathi.</option>
       </select>
       <label for="name">Name:</label>
-      <input type="text" id="name" required placeholder="Enter Name">
+      <input type="text" id="name" required placeholder="Enter Name" />
 
       <label for="standard">Standard :</label>
       <select id="standard">
@@ -345,7 +296,6 @@
         <option value="D.El.Ed 2nd YEAR">D.El.Ed 2nd YEAR</option>
         <option value="TEACHING STAFF">TEACHING STAFF </option>
         <option value="STAFF">STAFF </option>
-
       </select>
 
       <label for="Place">Place :</label>
@@ -362,7 +312,6 @@
         <option value="B">B</option>
         <option value="C">C</option>
       </select>
-
 
       <label for="competition">Competition:</label>
       <select id="competition">
@@ -385,37 +334,38 @@
   <div class="certificate-container" id="certificate">
     <div class="certificate-header">
       <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjLdEud63LM6wL_5eIGtkccS6bU7dH2mJs2HQKzAMkQPLza0CseMZ9GwDV-9IQ2Qe9h7G667bu379NYJxlYuvBFVDHaghTPsIhTmXiVEn5gv5eseWodueMsnvujllBnoRgIfpsvIAQnk_iy9xosQns4MHo7PY7aMIJ4eDwiQsWP_kvRpHU/s1600/Logo2.png"
-        alt="Logo">
-      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEguLSO-bNLKuLmPHEDsU06Vt-FoStb1abFLMWeKlskX-siWwEJDsArPmYpQvyem_7R4nzaTl56AUnL61CWW3pB6bcASLdpp16fkMViTNU_J-tIe-l4FAt4U6jW3doXN61E6OKre_xi_mF9ZOYJePoVA-4FzTPOtd2rGcflLsklZBDHozOA0QMN5gwRh_HE/s1152/Gemini_Generated_Image_mv1miimv1miimv1m.png"
-        alt="Right Logo">
-      <p style="margin-top: 10px; min-height: 50px;" class="school-name">THIRUMALA DEVASWOM</p>
-      <p style="margin-top: -50px; min-height: 50px;" class="school-address">TEACHER TRAINING INSTITUTE</p>
-      <p style="margin-top: -50px; min-height: 50px;" class="school-address">THURAVOOR, ALAPPUZHA</p>
-      <p style="margin-top: -50px; min-height: 50px;" class="school-address">PH : 0478-256 4479</p>
+        alt="Logo" />
+      <img style="height: 160px; width: 120px;"
+        src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEguLSO-bNLKuLmPHEDsU06Vt-FoStb1abFLMWeKlskX-siWwEJDsArPmYpQvyem_7R4nzaTl56AUnL61CWW3pB6bcASLdpp16fkMViTNU_J-tIe-l4FAt4U6jW3doXN61E6OKre_xi_mF9ZOYJePoVA-4FzTPOtd2rGcflLsklZBDHozOA0QMN5gwRh_HE/s1152/Gemini_Generated_Image_mv1miimv1miimv1m.png" />
+      <p class="school-name">THIRUMALA DEVASWOM</p>
+      <p class="school-address">TEACHER TRAINING INSTITUTE</p>
+      <p class="school-address">THURAVOOR, ALAPPUZHA</p>
+      <p class="school-address">PH : 0478-256 4479</p>
 
       <h1 class="certificate-title">CERTIFICATE OF MERIT</h1>
+
     </div>
-    <div class="certificate-body"><br>
+
+    <div class="certificate-body"><br />
       <img id="candidatePhoto"
         src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjwrbYu6FCIwrgEXJlReubLwlXDwqpvthaJhRUVS-b9bxHwwy7Wo6Dpm4h7B1Awej_JguhJn6rlhkz33W3MxtOEALiRNUhZJRHlzkJ-3NPtewH8jjf9ufrAtDAafBHqSMCnV5zez-MxImBe4zHbkB1ZT9AzA3_tpnXrgXi8hhOkXziESw/s1600/CON.jpg"
-        alt="Candidate Photo">
+        alt="Candidate Photo" />
       <p>This Credential is Awarded to</p>
       <h2 id="recipientName"> Master./ Kumari. [Name]</h2>
       <p>Standard: <strong> <span id="recipientStandard">[Standard]</span></strong> </p>
-      <p>For Winning the <strong> <span id="recipientPlace">[Place]</span></strong> Place with <strong> <span
-            id="recipientGrade">[Grade]</span></strong> Grade in the <strong> <span
-            id="recipientCompetition">[Competition]</span></strong> Competition held </p>
-      <p>in connection with the <strong> SCHOOL ATHLETIC MEET </strong>On <strong>20.02.2026 FRIDAY.</strong></p> <br><br>
-      <p style="float:left;margin-left:50px;">Date : 20.02.2026</p><br>
-      <p style="float:left;margin-left:-145px;">Place : Thuravoor</p><br><br><br><br><br><br><br>
+      <p>For Winning the <strong> <span id="recipientPlace">[Place]</span></strong> Place with <strong>
+          <span id="recipientGrade">[Grade]</span></strong> Grade in the <strong> <span id="recipientCompetition">[Competition]</span></strong> Competition held </p>
+      <p>in connection with the <strong> SCHOOL ATHLETIC MEET </strong>On <strong>20.02.2026 FRIDAY.</strong></p> <br /><br />
+      <p style="float:left;margin-left:50px;">Date : 20.02.2026</p><br />
+      <p style="float:left;margin-left:-145px;">Place : Thuravoor</p><br /><br /><br /><br /><br /><br /><br />
     </div>
     <div class="certificate-footer">
       <div class="signature">
-        <p>THEJAS R<br>( Convenor )</p>
+        <p>THEJAS R<br />( Convenor )</p>
       </div>
 
       <div class="signature">
-        <p>ASHA V <br>( Principal )</p>
+        <p>ASHA V <br />( Principal )</p>
       </div>
     </div>
 
@@ -426,13 +376,13 @@
   </div>
 
   <div class="btn-container" id="btnContainer" style="display:none;">
-    <button class="btn" onclick="printCertificate()">Print Certificate</button><br><br><br>
+    <button class="btn" onclick="printCertificate()">Print Certificate</button><br /><br /><br />
 
-    <button class="btn" onclick="downloadCertificate()">Download Certificate</button> <br><br><br>
-    <button class="btn" onclick="resetForm()">New Certificate</button> </div>
+    <button class="btn" onclick="downloadCertificate()">Download Certificate</button> <br /><br /><br />
+    <button class="btn" onclick="resetForm()">New Certificate</button>
+  </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
   <script>
-    // Check login status on page load
     window.onload = () => {
       if (localStorage.getItem('isLoggedIn') === 'true') {
         document.getElementById('loginContainer').style.display = 'none';
@@ -440,24 +390,23 @@
       }
     }
 
-    // Validate login and store login state if "Keep me signed in" checked
     function validateLogin() {
       const loginId = document.getElementById('loginId').value;
       const loginPassword = document.getElementById('loginPassword').value;
       const keepSignedIn = document.getElementById('keepSignedIn').checked;
 
       if (loginId === '1' && loginPassword === '1') {
-        document.getElementById('loginContainer').style.display = 'none'; // Hide login form
-        document.getElementById('formContainer').style.display = 'block'; // Show certificate form
+        document.getElementById('loginContainer').style.display = 'none';
+        document.getElementById('formContainer').style.display = 'block';
         document.getElementById('loginError').style.display = 'none';
 
         if (keepSignedIn) {
-          localStorage.setItem('isLoggedIn', 'true'); // Keep user logged in
+          localStorage.setItem('isLoggedIn', 'true');
         } else {
-          localStorage.removeItem('isLoggedIn'); // Do not keep user logged in
+          localStorage.removeItem('isLoggedIn');
         }
       } else {
-        document.getElementById('loginError').style.display = 'block'; // Show error message
+        document.getElementById('loginError').style.display = 'block';
       }
     }
 
@@ -478,8 +427,8 @@
       const candidatePhoto = document.getElementById('candidatePhoto');
       candidatePhoto.style.display = 'block';
 
-      document.getElementById('certificate').style.display = 'block'; // Show the certificate
-      document.getElementById('btnContainer').style.display = 'block'; // Show the buttons
+      document.getElementById('certificate').style.display = 'block';
+      document.getElementById('btnContainer').style.display = 'block';
     }
 
     function printCertificate() {
@@ -503,7 +452,7 @@
             <style>
                 @page {
                     size: A4 landscape;
-                    margin: 10mm 15mm;
+                    margin: 10mm;
                 }
                 body {
                     margin: 0;
@@ -513,11 +462,10 @@
                     display: block !important;
                     box-shadow: none;
                     margin: 0 auto;
-                    width: 100% !important;
+                    max-width: 100vw !important;
                     height: auto !important;
+                    padding: 0 10mm;
                     box-sizing: border-box;
-                    border: 5px solid #d4af37 !important;
-                    padding: 0 !important;
                 }
             </style>
         </head>
@@ -532,14 +480,16 @@
       printWindow.document.close();
 
       printWindow.onload = function () {
+        printWindow.focus();
         printWindow.print();
+        // printWindow.close(); // optionally close the window after printing
       };
     }
 
     function downloadCertificate() {
       var element = document.getElementById('certificate');
       html2pdf().from(element).set({
-        margin: 0,
+        margin: 10,
         filename: 'certificate_of_merit.pdf',
         image: {
           type: 'jpeg',
@@ -550,7 +500,7 @@
           useCORS: true
         },
         jsPDF: {
-          unit: 'in',
+          unit: 'mm',
           format: 'a4',
           orientation: 'landscape'
         }
@@ -564,7 +514,6 @@
       document.getElementById('formContainer').style.display = 'block';
     }
   </script>
-
 
 </body>
 
