@@ -18,7 +18,8 @@
       padding: 20px;
       margin: 10px auto;
       width: 90%;
-      max-width: auto;
+      max-width: 600px;
+      box-sizing: border-box;
     }
 
     .form-container h2,
@@ -70,47 +71,61 @@
     }
 
     .certificate-container {
-      width: 1200px;
-      /* A4 width in landscape */
-      height: 750px;
-      /* Adjust height for landscape */
+      width: 100%;
+      max-width: 900px;
+      height: auto;
       padding: 5px;
       border: 5px solid #d4af37;
-      /* Gold border */
       margin: 5px auto;
-      margin-left: -20px;
       background-color: white;
       position: relative;
       display: none;
-      /* Hide the certificate initially */
+      box-sizing: border-box;
     }
 
     .certificate-header {
       text-align: center;
       padding-bottom: 5px;
       border-bottom: 2px solid #000;
+      position: relative;
     }
 
     .certificate-header img {
       width: 50px;
       position: absolute;
+      top: 10px;
+    }
+
+    .certificate-header img:first-child {
+      left: 20px;
+    }
+
+    .certificate-header img:last-child {
+      right: 20px;
+      height: 160px;
+      width: 120px;
+      position: absolute;
+      top: 10px;
     }
 
     .school-name {
       font-size: 40px;
       font-weight: bold;
       color: #02498D;
+      margin-top: 20px;
     }
 
     .school-address {
       font-size: 25px;
       color: #02498D;
+      margin-top: -40px;
     }
 
     .certificate-title {
       font-size: 30px;
       font-weight: bold;
       color: #d4af37;
+      margin-top: 10px;
     }
 
     .certificate-body {
@@ -160,29 +175,110 @@
     @media print {
       @page {
         size: A4 landscape;
-        /* Change to your desired custom size */
         margin: 4mm;
-        /* Adjust margins as needed */
       }
 
       body {
         margin: 0;
-        /* Remove default body margin */
       }
 
       .form-container,
       .btn-container {
         display: none;
-        /* Hide form and buttons when printing */
       }
 
       .certificate-container {
         display: block;
-        /* Show the certificate during printing */
       }
 
       .certificate-body p.hide-on-print {
         display: none;
+      }
+    }
+
+    /* Responsive styles */
+
+    @media screen and (max-width: 768px) {
+      .certificate-container {
+        max-width: 100%;
+        padding: 10px;
+      }
+
+      .certificate-header img:first-child {
+        width: 40px;
+        position: absolute;
+        top: 10px;
+        left: 10px;
+      }
+
+      .certificate-header img:last-child {
+        width: 80px;
+        height: 120px;
+        top: 10px;
+        right: 10px;
+      }
+
+      .school-name {
+        font-size: 28px;
+        margin-top: 50px;
+      }
+
+      .school-address {
+        font-size: 18px;
+        margin-top: 0;
+      }
+
+      .certificate-title {
+        font-size: 24px;
+      }
+
+      .certificate-body h2 {
+        font-size: 22px;
+      }
+
+      #candidatePhoto {
+        width: 80px;
+        height: 80px;
+      }
+
+      .certificate-body p {
+        font-size: 16px;
+      }
+
+      .certificate-footer {
+        flex-direction: column;
+        padding: 0 30px;
+      }
+
+      .certificate-footer > div {
+        margin-bottom: 10px;
+      }
+
+      .btn {
+        width: 80%;
+        padding: 15px;
+        font-size: 16px;
+      }
+
+      label, input, select {
+        float: none;
+        width: 100%;
+      }
+    }
+
+    @media screen and (max-width: 400px) {
+      label {
+        float: none;
+        margin-bottom: 10px;
+      }
+
+      input,
+      select {
+        width: 100%;
+      }
+
+      .btn {
+        width: 100%;
       }
     }
   </style>
@@ -214,9 +310,9 @@
 
   <div class="form-container" id="formContainer" style="display: none;">
     <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjLdEud63LM6wL_5eIGtkccS6bU7dH2mJs2HQKzAMkQPLza0CseMZ9GwDV-9IQ2Qe9h7G667bu379NYJxlYuvBFVDHaghTPsIhTmXiVEn5gv5eseWodueMsnvujllBnoRgIfpsvIAQnk_iy9xosQns4MHo7PY7aMIJ4eDwiQsWP_kvRpHU/s1600/Logo2.png"
-      alt="Logo" style="top: 10px;float:center;max-height: 150px; max-width: 150px;"> <img style="top:10px;right:20px;max-height: 100px; max-width: 100px;"
-      src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEghYTembczOQwYJxIW-xz25srYKCl35-emFKEtk4O0guiKASkPSa0yyop9sGtTfkeSOQ7Rx3TN-BfQPqVIkZI7c5jhBAvREMhgi4rvBwU_qZnd6xzjXNTMvDga0Bn78hJ-95lqbVs-67M6Vt2piAGuRDIBs9-QbC0AlZhWsnRwTrw5NDA/s1600/SPORTS.jpg"
-      style="top:10px;right:20px;max-height: 100px; max-width: 200px;">
+      alt="Logo" style="top: 10px;float:center;max-height: 150px; max-width: 150px;"> <img
+      style="top:10px;right:20px;max-height: 100px; max-width: 100px;"
+      src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEghYTembczOQwYJxIW-xz25srYKCl35-emFKEtk4O0guiKASkPSa0yyop9sGtTfkeSOQ7Rx3TN-BfQPqVIkZI7c5jhBAvREMhgi4rvBwU_qZnd6xzjXNTMvDga0Bn78hJ-95lqbVs-67M6Vt2piAGuRDIBs9-QbC0AlZhWsnRwTrw5NDA/s1600/SPORTS.jpg">
     <p style="margin-top: 10px; min-height: 50px;" class="school-name">THIRUMALA DEVASWOM</p>
     <p style="margin-top: -50px; min-height: 50px;" class="school-address">TEACHER TRAINING INSTITUTE</p>
     <p style="margin-top: -50px; min-height: 50px;" class="school-address">THURAVOOR, ALAPPUZHA</p>
@@ -289,14 +385,13 @@
     </form>
   </div>
 
-  
-<center></center>  <div class="certificate-container" id="certificate">
+
+  <div class="certificate-container" id="certificate">
     <div class="certificate-header">
       <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjLdEud63LM6wL_5eIGtkccS6bU7dH2mJs2HQKzAMkQPLza0CseMZ9GwDV-9IQ2Qe9h7G667bu379NYJxlYuvBFVDHaghTPsIhTmXiVEn5gv5eseWodueMsnvujllBnoRgIfpsvIAQnk_iy9xosQns4MHo7PY7aMIJ4eDwiQsWP_kvRpHU/s1600/Logo2.png"
         alt="Logo" style="top: 10px;left: 20px;float:left;min-height: 150px; min-width: 150px;">
       <img style="top:10px;right:20px;min-height: 100px; min-width: 100px;"
-        src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEguLSO-bNLKuLmPHEDsU06Vt-FoStb1abFLMWeKlskX-siWwEJDsArPmYpQvyem_7R4nzaTl56AUnL61CWW3pB6bcASLdpp16fkMViTNU_J-tIe-l4FAt4U6jW3doXN61E6OKre_xi_mF9ZOYJePoVA-4FzTPOtd2rGcflLsklZBDHozOA0QMN5gwRh_HE/s1152/Gemini_Generated_Image_mv1miimv1miimv1m.png"
-        style="top:10px;right:20px;height: 160px; width: 120px;">
+        src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEguLSO-bNLKuLmPHEDsU06Vt-FoStb1abFLMWeKlskX-siWwEJDsArPmYpQvyem_7R4nzaTl56AUnL61CWW3pB6bcASLdpp16fkMViTNU_J-tIe-l4FAt4U6jW3doXN61E6OKre_xi_mF9ZOYJePoVA-4FzTPOtd2rGcflLsklZBDHozOA0QMN5gwRh_HE/s1152/Gemini_Generated_Image_mv1miimv1miimv1m.png">
       <p style="margin-top: 10px; min-height: 50px;" class="school-name">THIRUMALA DEVASWOM</p>
       <p style="margin-top: -50px; min-height: 50px;" class="school-address">TEACHER TRAINING INSTITUTE</p>
       <p style="margin-top: -50px; min-height: 50px;" class="school-address">THURAVOOR, ALAPPUZHA</p>
@@ -318,7 +413,8 @@
       <h2 id="recipientName"> Master./ Kumari. [Name]</h2>
       <p>Standard: <strong> <span id="recipientStandard">[Standard]</span></strong> </p>
       <p>For Winning the <strong> <span id="recipientPlace">[Place]</span></strong> Place with <strong> <span
-            id="recipientGrade">[Grade]</span></strong> Grade in the <strong> <span id="recipientCompetition">[Competition]</span></strong> Competition held </p>
+            id="recipientGrade">[Grade]</span></strong> Grade in the <strong> <span id="recipientCompetition">[Competition]</span></strong>
+        Competition held </p>
       <p>in connection with the <strong> SCHOOL ATHLETIC MEET </strong>On <strong>20.02.2026 FRIDAY.</strong></p> <br><br><br>
       <p style="float:left;margin-left:50px;">Date : 20.02.2026</p><br>
       <p style="float:left;margin-left:-145px;">Place : Thuravoor</p><br>
@@ -334,10 +430,9 @@
     </div>
 
     <div class="signature">
-    <p>(School Seal)</p>
+      <p>(School Seal)</p>
     </div>
   </div>
-</center>
   <div class="btn-container" id="btnContainer" style="display:none;">
     <button class="btn" onclick="printCertificate()">Print Certificate</button><br><br><br>
 
